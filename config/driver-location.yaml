@@ -1,0 +1,8 @@
+server:
+  port: 8081
+database:
+  uri : mongodb://root:example@mongo:27017/driver-db?authSource=admin
+logging:
+  level: info
+jwt_secret_key: "OmUy44AzjM"
+jwt_issuer: "driver-service"

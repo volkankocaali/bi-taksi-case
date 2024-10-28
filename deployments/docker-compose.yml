@@ -1,0 +1,66 @@
+version: '3'
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "${MONGO_PORT}:${MONGO_PORT}"
+    command: mongod --quiet --logpath /dev/null
+    environment:
+      MONGO_LOGLEVEL: ${MONGO_LOGLEVEL}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    volumes:
+      - mongo-data:/data/database
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+
+  driver-location-api:
+    build:
+      context: ../
+      dockerfile: ./cmd/driver-location/Dockerfile
+    container_name: driver-location-api
+    ports:
+      - "${DRIVER_LOCATION_PORT}:${DRIVER_LOCATION_PORT}"
+    environment:
+      - MONGO_URI=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo:${MONGO_PORT}
+    depends_on:
+      - mongo
+
+  matching-api:
+    build:
+      context: ../
+      dockerfile: ./cmd/matching-api/Dockerfile
+    container_name: matching-api
+    ports:
+      - "${MATCHING_API_PORT}:${MATCHING_API_PORT}"
+    environment:
+      - DRIVER_LOCATION_API_URL=${DRIVER_LOCATION_API_URL}
+    depends_on:
+      - driver-location-api
+
+  swagger-ui-driver-location:
+    image: swaggerapi/swagger-ui
+    container_name: swagger-ui-driver-location
+    ports:
+      - "8083:8080"
+    environment:
+      SWAGGER_JSON: "/swagger/driver-location/swagger.yaml"
+    volumes:
+      - ../docs/driver-location:/swagger/driver-location
+    depends_on:
+      - driver-location-api
+
+  swagger-ui-matching-api:
+    image: swaggerapi/swagger-ui
+    container_name: swagger-ui-matching-api
+    ports:
+      - "8084:8080"
+    environment:
+      SWAGGER_JSON: "/swagger/matching-api/swagger.yaml"
+    volumes:
+      - ../docs/matching-api:/swagger/matching-api
+    depends_on:
+      - matching-api
+
+volumes:
+  mongo-data:

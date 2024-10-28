@@ -1,0 +1,481 @@
+{
+	"info": {
+		"_postman_id": "3ff8c1fa-7de9-4400-82f2-f55577fdcee7",
+		"name": "bi-taksi-case",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23039091"
+	},
+	"item": [
+		{
+			"name": "Matching Api",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.collectionVariables.set(\"authTokenMatching\", jsonData.token);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"username\": \"volkan.kocaali\",\n        \"password\": \"bitaksi\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{matchingApiHost}}/{{matchingApiVersion}}/login",
+							"host": [
+								"{{matchingApiHost}}"
+							],
+							"path": [
+								"{{matchingApiVersion}}",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.collectionVariables.set(\"authTokenMatching\", jsonData.token);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"username\": \"volkan.kocaali\",\n        \"password\": \"bitaksi\",\n        \"password_confirmation\" : \"bitaksi\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{matchingApiHost}}/{{matchingApiVersion}}/register",
+							"host": [
+								"{{matchingApiHost}}"
+							],
+							"path": [
+								"{{matchingApiVersion}}",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Match Driver",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authTokenMatching}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"lat\" : 41.0082,\n   \"lon\" : 28.9784,\n   \"radius\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{matchingApiHost}}/{{matchingApiVersion}}/match-driver",
+							"host": [
+								"{{matchingApiHost}}"
+							],
+							"path": [
+								"{{matchingApiVersion}}",
+								"match-driver"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Driver Location",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.collectionVariables.set(\"authTokenDriver\", jsonData.token);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"username\": \"john.doe\",\n        \"password\": \"bitaksi\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{driverApiHost}}/{{driverApiVersion}}/login",
+							"host": [
+								"{{driverApiHost}}"
+							],
+							"path": [
+								"{{driverApiVersion}}",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"",
+									"pm.collectionVariables.set(\"authTokenMatching\", jsonData.token);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"username\": \"john.doe\",\n        \"password\": \"bitaksi\",\n        \"password_confirmation\" : \"bitaksi\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{driverApiHost}}/{{driverApiVersion}}/register",
+							"host": [
+								"{{driverApiHost}}"
+							],
+							"path": [
+								"{{driverApiVersion}}",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Driver Location Create Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authTokenDriver}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"driver_id\": \"driver123\",\n        \"location\": {\n            \"type\": \"Point\",\n            \"coordinates\": [28.979530, 41.015137]\n        },\n        \"timestamp\": \"2024-10-24T10:00:00Z\"\n    },\n    {\n        \"driver_id\": \"driver456\",\n        \"location\": {\n            \"type\": \"Point\",\n            \"coordinates\": [32.859741, 39.933365]\n        },\n        \"timestamp\": \"2024-10-24T10:05:00Z\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{driverApiHost}}/{{driverApiVersion}}/driver-locations",
+							"host": [
+								"{{driverApiHost}}"
+							],
+							"path": [
+								"{{driverApiVersion}}",
+								"driver-locations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Driver Location",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authTokenDriver}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{driverApiHost}}/{{driverApiVersion}}/driver-locations/driver123",
+							"host": [
+								"{{driverApiHost}}"
+							],
+							"path": [
+								"{{driverApiVersion}}",
+								"driver-locations",
+								"driver123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Driver Within Radius",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authTokenDriver}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"lat\" : 28.97953,\n   \"lon\" : 41.015137,\n   \"radius\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{driverApiHost}}/{{driverApiVersion}}/find-driver-within-radius",
+							"host": [
+								"{{driverApiHost}}"
+							],
+							"path": [
+								"{{driverApiVersion}}",
+								"find-driver-within-radius"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "driverApiHost",
+			"value": "0.0.0.0:8081/api",
+			"type": "string"
+		},
+		{
+			"key": "driverApiVersion",
+			"value": "v1",
+			"type": "string"
+		},
+		{
+			"key": "matchingApiHost",
+			"value": "0.0.0.0:8082/api",
+			"type": "string"
+		},
+		{
+			"key": "matchingApiVersion",
+			"value": "v1",
+			"type": "string"
+		},
+		{
+			"key": "authTokenMatching",
+			"value": ""
+		},
+		{
+			"key": "authTokenDriver",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

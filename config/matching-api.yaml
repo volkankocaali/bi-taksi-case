@@ -1,0 +1,8 @@
+server:
+  port: 8082
+database:
+  uri : mongodb://root:example@mongo:27017/matching-db?authSource=admin
+logging:
+  level: debug
+jwt_secret_key : "Hducihv3Io"
+jwt_issuer: "matching-service"
