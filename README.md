@@ -61,14 +61,14 @@ The application uses environment variables for configuration. Below is a list of
 
 Swagger documentation is available at the following URL:
 ````
-http://localhost:8083/swagger/index.html
+http://localhost:8083/
 
-http://localhost:8084/swagger/index.html
+http://localhost:8084/
 ````
 
 ## Importing Initial Data
 
-Run the command to add the driver location add
+Run the command to add the driver location add, You need to remove services from docker before running the command.
 
 ```bash
 go run cmd/import-data/main.go
