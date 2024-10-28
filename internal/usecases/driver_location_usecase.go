@@ -6,6 +6,7 @@ import (
 	"github.com/volkankocaali/bi-taksi-case/internal/repository"
 	"github.com/volkankocaali/bi-taksi-case/internal/resource/response"
 	"github.com/volkankocaali/bi-taksi-case/pkg/haversine"
+	"sort"
 	"time"
 )
 
@@ -106,6 +107,10 @@ func (uc *DriverLocationUseCase) FindDriversWithinRadius(ctx context.Context, la
 			})
 		}
 	}
+
+	sort.SliceStable(driversWithinRadius, func(i, j int) bool {
+		return driversWithinRadius[i].Distance < driversWithinRadius[j].Distance
+	})
 
 	return driversWithinRadius, nil
 }
