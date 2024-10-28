@@ -87,7 +87,7 @@ func (uc *DriverLocationUseCase) GetLatestDriverLocation(ctx context.Context, dr
 	return location, nil
 }
 
-func (uc *DriverLocationUseCase) FindDriversWithinRadius(ctx context.Context, lat, lon, radius float64) ([]response.Driver, error) {
+func (uc *DriverLocationUseCase) FindDriversWithinRadius(ctx context.Context, lat, lon, radius float64, page, pageSize int) ([]response.Driver, error) {
 	point := haversine.NewLocation(lat, lon)
 	drivers, err := uc.repo.GetAllDrivers(ctx)
 	if err != nil {
@@ -112,5 +112,15 @@ func (uc *DriverLocationUseCase) FindDriversWithinRadius(ctx context.Context, la
 		return driversWithinRadius[i].Distance < driversWithinRadius[j].Distance
 	})
 
-	return driversWithinRadius, nil
+	start := (page - 1) * pageSize
+	end := start + pageSize
+
+	if start > len(driversWithinRadius) {
+		return []response.Driver{}, nil
+	}
+	if end > len(driversWithinRadius) {
+		end = len(driversWithinRadius)
+	}
+
+	return driversWithinRadius[start:end], nil
 }

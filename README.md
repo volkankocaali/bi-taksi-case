@@ -273,7 +273,9 @@ go run cmd/import-data/main.go
        {
              "lat" : 28.97953,
              "lon" : 41.015137,
-             "radius": 5
+             "radius": 5,
+             "page" : 1,
+             "page_size" : 1000
         }
     ```
   - **Response**:

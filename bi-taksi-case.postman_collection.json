@@ -149,7 +149,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"lat\" : 41.0082,\n   \"lon\" : 28.9784,\n   \"radius\": 5\n}",
+							"raw": "{\n   \"lat\" : 41.0598825,\n   \"lon\" : 29.03858138,\n   \"radius\": 5\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -402,7 +402,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"lat\" : 28.97953,\n   \"lon\" : 41.015137,\n   \"radius\": 5\n}",
+							"raw": "{\n   \"lat\" : 41.0598825,\n   \"lon\" : 29.03858138,\n   \"radius\": 5,\n   \"page\" : 1,\n   \"page_size\" : 1000\n}",
 							"options": {
 								"raw": {
 									"language": "json"

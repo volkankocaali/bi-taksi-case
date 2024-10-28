@@ -140,7 +140,16 @@ func (h *DriverHandler) FindDriverWithinRadius(w http.ResponseWriter, r *http.Re
 		return
 	}
 
-	drivers, err := h.usecase.FindDriversWithinRadius(r.Context(), req.Lat, req.Lon, req.Radius)
+	page := 1
+	pageSize := 10
+	if req.Page > 0 {
+		page = req.Page
+	}
+	if req.PageSize > 0 {
+		pageSize = req.PageSize
+	}
+
+	drivers, err := h.usecase.FindDriversWithinRadius(r.Context(), req.Lat, req.Lon, req.Radius, page, pageSize)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(
