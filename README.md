@@ -146,7 +146,7 @@ go run cmd/import-data/main.go
 - **Response**:
     ```json
     {
-        "id": "driver000",
+        "id": "driver-8be0e1d5-c44f-455b-9bee-a909a076d50e",
         "latitude": 28.97953,
         "longitude": 41.015137
     }
@@ -219,7 +219,7 @@ go run cmd/import-data/main.go
     ```json
     [
     {
-        "driver_id": "driver000",
+        "driver_id": "driver-8be0e1d5-c44f-455b-9bee-a909a076d50e",
         "location": {
             "type": "Point",
             "coordinates": [28.979530, 41.015137]
@@ -227,7 +227,7 @@ go run cmd/import-data/main.go
         "timestamp": "2024-10-24T10:00:00Z"
     },
     {
-        "driver_id": "driver001",
+        "driver_id": "driver-8be0e1d5-c44f-455b-9bee-a909a076d50e",
         "location": {
             "type": "Point",
             "coordinates": [32.859741, 39.933365]
@@ -252,7 +252,7 @@ go run cmd/import-data/main.go
   - **Response**:
       ```json
       {
-              "driver_id": "driver000",
+              "driver_id": "driver-8be0e1d5-c44f-455b-9bee-a909a076d50e",
               "location": {
                   "type": "Point",
                   "coordinates": [

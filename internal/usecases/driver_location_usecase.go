@@ -19,14 +19,62 @@ func NewDriverLocationUseCase(repo repository.DriverLocationRepository) *DriverL
 	}
 }
 
-func (uc *DriverLocationUseCase) CreateOrUpdateDriverLocations(ctx context.Context, location []domain.DriverLocation) error {
-	for _, loc := range location {
-		loc.Timestamp = time.Now()
-		if err := uc.repo.UpsertLocation(ctx, loc); err != nil {
+func (uc *DriverLocationUseCase) CreateOrUpdateDriverLocations(ctx context.Context, locations []domain.DriverLocation) error {
+	if len(locations) == 1 {
+		locations[0].Timestamp = time.Now()
+		return uc.repo.UpsertLocation(ctx, locations[0])
+	}
+
+	workerCount := calculateWorkerCount(len(locations))
+
+	locationChan := make(chan domain.DriverLocation, workerCount)
+	errChan := make(chan error, len(locations))
+	doneChan := make(chan struct{})
+
+	for i := 0; i < workerCount; i++ {
+		go func() {
+			for loc := range locationChan {
+				loc.Timestamp = time.Now()
+				if err := uc.repo.UpsertLocation(ctx, loc); err != nil {
+					errChan <- err
+					return
+				}
+			}
+			doneChan <- struct{}{}
+		}()
+	}
+
+	go func() {
+		for _, loc := range locations {
+			locationChan <- loc
+		}
+		close(locationChan)
+	}()
+
+	for i := 0; i < workerCount; i++ {
+		<-doneChan
+	}
+	close(errChan)
+	close(doneChan)
+
+	for err := range errChan {
+		if err != nil {
 			return err
 		}
 	}
+
 	return nil
+}
+
+func calculateWorkerCount(dataCount int) int {
+	switch {
+	case dataCount < 100:
+		return 1
+	case dataCount < 1000:
+		return 5
+	default:
+		return 10
+	}
 }
 
 func (uc *DriverLocationUseCase) GetLatestDriverLocation(ctx context.Context, driverID string) (*domain.DriverLocation, error) {

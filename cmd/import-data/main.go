@@ -5,9 +5,9 @@ import (
 	"encoding/csv"
 	"encoding/json"
 	"fmt"
+	"github.com/google/uuid"
 	"github.com/volkankocaali/bi-taksi-case/internal/resource/request"
 	"github.com/volkankocaali/bi-taksi-case/internal/resource/response"
-	"math/rand"
 	"net/http"
 	"os"
 	"strconv"
@@ -135,5 +135,5 @@ func sendToAPI(driverLocation []DriverLocation, token string) {
 }
 
 func generateDriverID() string {
-	return "driver-" + strconv.Itoa(rand.Intn(1000))
+	return "driver-" + uuid.New().String()
 }
